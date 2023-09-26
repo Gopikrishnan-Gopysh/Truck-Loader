@@ -1,92 +1,121 @@
-# f27sa_2023-24_coursework-1
+# Software Development 1, Coursework 1
+
+This is individual-assessed coursework. You are allowed to discuss this assessment with other students, but you should not copy their code or share your own code with other students. We will carry out plagiarism checks on submissions.
+
+## Objectives
+This coursework contributes **20%** of your overall mark for the course. It assesses your understanding of the learning materials from the first half of the course, including:
+- Using GitLab to pull and push code
+- Creating, storing, and accessing variables
+- Understanding the role of types
+- Creating expressions from operators, variables and values
+- Using conditional execution to implement decision-making
+- Creating, storing to, accessing, and iterating through arrays
+- Using loops to implement repetitive behaviour
+- Nesting conditional execution within loops, or vice versa
+  
+These topics are all covered in the learning materials. You should work through the Canvas material and the lab exercises from the first five weeks of the course before attempting the coursework. These help build the understanding you need to complete the coursework.
+
+## Submission
+
+The deadline for completing this coursework is Monday, 23rd October. Make sure you do these two things:
+1. Commit your work to GitLab before this deadline. If you don’t do this, a late penalty may be applied. There are instructions on using GitLab in the familiarisation tutorial.
+2. Submit a link to your Gitlab repository on Canvas.
+3. Attend the quiz related to this coursework in week 7.
+   
+
+### Do This First
+
+Fork and Import the GitLab Project
+You will be adding your code to an existing project in GitLab. The first thing you need to do is fork this project so that you’ll be working on your own copy and import it into Eclipse
+
+1.	Fork the project
+3.	Import your forked project into Eclipse
+
+**Don’t forget to fork the project before you import it**
+
+If you don’t do this, you won’t be able to save your changes back to Gitlab.
+
+If you don’t know how to do any of this, then make sure you first work through the Gitlab tutorial, which will take you through the process step by step. If you’re having trouble getting it to work, then come to a timetabled lab session and talk to a lab helper well before the submission deadline.
 
 
 
-## Getting started
+## The Behaviour of Your Programme
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+The GitLab project contains a single class, TruckLoader.java, where you will add your code. You must write a very simple database implementation, which will read data records from the user, store them in arrays, and then allow the user to print out selected records according to some criteria.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
+Here’s an example of what your program’s behaviour could look like:
 ```
-cd existing_repo
-git remote add origin https://gitlab-student.macs.hw.ac.uk/kk2021/f27sa_2023-24_coursework-1.git
-git branch -M main
-git push -uf origin main
+
+Welcome to Truck Loader
+What is the maximum number of boxes that can fit inside the truck?
+3
+Please enter the customer name for box 1:
+GreenTech
+Please enter the weight(kg) for box 1:
+50.4
+Does box 1 contain dangerous goods (y/n)?
+n
+Please enter the customer name for box 2:
+BioWave
+Please enter the weight(kg) for box 2:
+60.2
+Does box 2 contain dangerous goods (y/n)?
+y
+Please enter the customer name for box 3:
+GreenTech
+Please enter the weight (kg) for box 3:
+65.1
+Does box 3 contain dangerous goods (y/n)?
+n
+All the information regarding the boxes has been entered.
+List (a)ll boxes information, search boxes by (c)ustomer name or (d)angerous cargo, or (q)uit?
+a
+Here is the list of all the boxes:
+Box 1 Customer name: GreenTech Weight kg):50.4 Non Dangerous Goods
+Box 2 Customer name: BioWave Weight(kg):60.2 Dangerous Goods
+Box 3 Customer name: GreenTech Weight(kg):65.1 Non Dangerous Goods
+List (a)ll boxes information, search boxes by (c)ustomer name or (d)angerous cargo, or (q)uit?
+c
+What is the customer's name? greentech
+Box 1 Customer name: GreenTech Weight (kg):50.4 Non Dangerous Goods
+Box 3 Customer name: GreenTech Weight (kg):65.1 Non Dangerous Goods
+List (a)ll boxes information, search boxes by (c)ustomer name or (d)angerous cargo, or (q)uit?
+d
+Search for (d)angerous or (n)on-dangerous? d
+Box 2 Customer name: BioWave Weight (kg):60.2 Dangerous Goods
+List (a)ll boxes information, search boxes by (c)ustomer name or (d)angerous cargo, or (q)uit?
+q
+Thank you for using the Truck Loader.
 ```
 
-## Integrate with your tools
+Specifically, you should write code so that:
+- The user specifies how many boxes can fit in the truck, which sets how many data records will be read. 
+- The customer’s name, weight and if the box contains a dangerous good, should then be sequentially read in from the user and stored in arrays.
+  - This data should be stored in three separate arrays: one for customer names, one for weight, and one for dangerous goods, i.e. the first element of the names array should be the first box customer name, the first element of the weight array should be the weight of the first box, the first element of the dangerous goods array should be the if the first box contains dangerous goods.
+  - To keep things simple, assuming that names will be entered as single words, as in the example, is okay. This will allow you to use Scanner’s next() method rather than nextLine()since the latter can be a bit troublesome.
+- The dangerous goods array should be a boolean array, since this is more efficient than storing binary values as strings or characters.
+  - That is, “Dangerous Goods” should be stored as true, and “Non-Dangerous Goods” should be stored as false.
+- Once the user has finished entering the data, they should be given the option to:
+  - List all the entries in the database. You can print every box information, as in the example.
+  - List all the entries that match a customer name, as specified by the user.
+  - List all the entries that match a particular Dangerous or Non-Dangerous Goods, as specified by the user. 
+  - Quit, at which point the program should display a farewell message and exit.
+- The program should keep asking the user what they want to do until they choose to exit.
+  - You will need an outer loop to implement this behaviour.
+  - Note that your program will automatically exit when execution reaches the end of the main method. You should not use `System.exit()` to achieve this.
+  
+As usual, it is recommended that you commit your changes to GitLab every time you get something working. Restoring the earlier working version will be easy if you break the code later. Once you’ve finished, make sure you commit your code to GitLab before you submit on canvas. If you have not finished everything, please commit to what you have been able to finish. 
 
-- [ ] [Set up project integrations](https://gitlab-student.macs.hw.ac.uk/kk2021/f27sa_2023-24_coursework-1/-/settings/integrations)
 
-## Collaborate with your team
+## Marks
+You will get a mark out of 10 for your work. Here is a guide to how your work will be marked, though the final mark is up to the person marking your work and will reflect the understanding of the course materials shown in your work:
+- 3 marks for correctly reading data from the user and storing it in arrays
+- 3 marks for correctly accessing the arrays and displaying the correct data
+- 2 marks for correctly implementing the user interface
+- 1 mark for programming style, including whether you’ve made good design choices, how your code is formatted and commented, and whether it follows Java’s naming conventions 
+- 1 mark for using GitLab correctly, i.e. forking, checking out the code stub, and committing
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+>Late submissions will be marked according to the university's late submissions policy, i.e. a 30% deduction if submitted within 5 working days of the original deadline, and no mark after that.
+If you have mitigating circumstances (e.g. illness), please submit a mitigating circumstances application, as described at:
+https://www.hw.ac.uk/students/studies/examinations/mitigating-circumstances.htm
 
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
