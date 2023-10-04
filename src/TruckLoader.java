@@ -2,107 +2,119 @@ import java.util.Scanner;
 
 public class TruckLoader {
 
-		public static void main(String[] args) {
+    public static void main(String[] args) {
 
-			Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
 
-	//Declaring the arrays and the variables required
+        //Declaring the required arrays
+        String[] nameOfCustomers;
+        String[] weightOfBoxes;
+        boolean[] dangerousItemInBox;
+        int numberOfBoxes;
+        String yesOrNo;
+        String searchNameOfCustomer;
+        String searchToken;
+        boolean keepRunning = true;
 
-			String[] names;
-			String[] weight;
-			boolean[] danger;
-			int records;
-			String yesOrNo;
-			String custN;
-			String userOptions;
-			boolean loop = true;
+        System.out.println("Welcome to Truck Loader");
 
-			System.out.println("Welcome to Truck Loader");
-	//gets the users input for the number of records
-			System.out.println("What is the maximum number of boxes that can fit inside the truck?");
-			records = scan.nextInt();
-			System.out.println();
-	//Assigning array lengths based on user's input
-			names = new String[records];
-			weight = new String[records];
-			danger = new boolean[records];
-			
-	//User inputs required data
-			for (int i = 1; i <= records; i++) {
+        //Gets number of records
+        System.out.println("What is the maximum number of boxes that can fit inside the truck?");
+        numberOfBoxes = scan.nextInt();
+        System.out.println();
 
-				System.out.println("Please enter the customer name for box " + i + ":");
-				names[i - 1] = scan.next();
-				System.out.println("Please enter the weight(kg) for box " + i + ":");
-				weight[i - 1] = scan.next();
-				System.out.println("Does box " +i+ " contain dangerous goods (y/n):?");
-				yesOrNo = scan.next();
+        //Assigning array lengths based on user's input
+        nameOfCustomers = new String[numberOfBoxes];
+        weightOfBoxes = new String[numberOfBoxes];
+        dangerousItemInBox = new boolean[numberOfBoxes];
 
-				if (yesOrNo.equalsIgnoreCase("y"))
-					danger[i - 1] = true; 
-				else
-					danger[i - 1] = false;
-				System.out.println();
+        //Gets the required data
+        //++ is a unary operator
+        for (int i = 0; i < numberOfBoxes; i++) {
 
-			}
-			System.out.println("All the information regarding the boxes has been entered." );
+            System.out.println("Please enter the customer name for box " + (i+1) + ":");
+            nameOfCustomers[i] = scan.next();
+            
+            System.out.println("Please enter the weight(kg) for box " + (i+1) + ":");
+            weightOfBoxes[i] = scan.next();
+            
+            System.out.println("Does box " + (i+1) + " contain dangerous goods (y/n):?");
+            yesOrNo = scan.next();
+            
+            //using if condition to assign value to dangerousness of box
+            dangerousItemInBox[i] = yesOrNo.equalsIgnoreCase("y");
 
-	//Looping the database options using while condition and using switch case to choose between options
-			while (loop) {
+            System.out.println();
+        }
+        
+        System.out.println("All the information regarding the boxes has been entered.");
 
-				System.out.println("List (a)ll boxes information, search boxes by (c)ustomer name or (d)angerous cargo, or (q)uit?");
-				userOptions = scan.next();
-				System.out.println();
+        //Looping using 'while condition'
+        //Using 'switch case' to switch code pathway
+        while (keepRunning) {
 
-				switch (userOptions) {
-				case "a":
-					System.out.println("Here is the list of all the boxes:");
-					for (int i = 0; i < records; i++)
-						//Ternary operator/ Inline If= (?+;)
-						System.out.println("Box " + (i+1) + " Customer name: " + names[i] + " Weight(kg): " + weight[i] +" " + (danger[i]? "Dangerous Goods": "Non Dangerous Goods"));
-					System.out.println();
-					break;
+            System.out.println("List (a)ll boxes information, search boxes by (c)ustomer name or (d)angerous cargo, or (q)uit?");
+            searchToken = scan.next();
+            System.out.println();
 
-				case "c":
-					System.out.println("What is the customer's name? ");
-					custN = scan.next();
-					
-					for (int i = 0; i < records; i++)
-						System.out.println("Box " + (i+1) + " Customer name: " + names[i] + " Weight(kg): " + weight[i] +" " + (danger[i]? "Dangerous Goods": "Non Dangerous Goods"));
-					System.out.println();
+            switch(searchToken) {
+                //output of the all the data 
+                case "a":
+                    System.out.println("Here is the list of all the boxes:");
+ 
+                    for (int i = 0; i < numberOfBoxes; i++) {
+                        //(?:) = Ternary operator/ In-line If 
+                        System.out.println("Box " + (i+1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBox[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
+                    }
+                    System.out.println();
 
-					break;
+                    break;
 
-				case "d":
-					System.out.println("Search for(d)angerous or (n)on-dangerous?");
-					userOptions = scan.next();
-					System.out.println();
+                    //output of the data based on customer name
+                case "c":
+                    System.out.println("What is the customer's name? ");
+                    searchNameOfCustomer = scan.next();
 
-					switch (userOptions) {
-						case "d":
-							for (int i = 0; i < records; i++)
-								System.out.println("Box "  + " Customer name: " + names+ " Weight(kg): " + weight +" " + (danger) != null? "Dangerous Goods": "Non Dangerous Goods");
-							System.out.println();
-						break;
-						
-						case "n":
-							System.out.println("Here is the list of all the boxes:");
-							for (int i = 0; i < records; i++)
-								System.out.println("Box " + i + " Customer name: " + names[i] + " Weight(kg): " + weight[i] +" " + (danger[i]? "Dangerous Goods": "Non Dangerous Goods"));
-							System.out.println();
-						break;
-					}
-					break;
+                    for (int i = 0; i < numberOfBoxes; i++) {
+                        if (nameOfCustomers[i].equalsIgnoreCase(searchNameOfCustomer)) {
+                            System.out.println("Box " + (i+1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBox[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
+                        }
+                    }
+                    System.out.println();
 
-				case "q":
-					System.out.println("Thank you for using the Truck Loader.");
-					loop = false;
-					break;
+                    break;
 
-				}
+                    //output of the data based on contents of the box	
+                case "d":
+                    System.out.println("Search for(d)angerous or (n)on-dangerous?");
+                    searchToken = scan.next();
+                    System.out.println();
+                    
+                    for (int i = 0; i < numberOfBoxes; i++){
+                    	//&& is a unary operator
+                        if (dangerousItemInBox[i] && searchToken.equalsIgnoreCase("d")) {
+                            System.out.println("Box " + (i + 1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBox[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
+                        }
+                        //! is a unary operator
+                        if (!dangerousItemInBox[i] && searchToken.equalsIgnoreCase("n")) {
+                            System.out.println("Box " + (i + 1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBox[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
+                        }
+                    }
+                        System.out.println();
 
-			}
+                    break;
 
-			scan.close();
+                case "q":
+                    //quit statement
+                 System.out.println("Thank you for using the Truck Loader.");
+                    keepRunning = false;
+                    break;
 
-		}
-	}
+            }
+
+        }
+
+        scan.close();
+
+    }
+}
