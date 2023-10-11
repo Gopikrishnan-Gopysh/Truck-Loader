@@ -7,30 +7,30 @@ public class TruckLoader {
         Scanner scan = new Scanner(System.in);
 
         //Declaring the required arrays
-        String[] nameOfCustomers;
-        String[] weightOfBoxes;
-        boolean[] dangerousItemInBox;
-        int numberOfBoxes;
         String yesOrNo;
         String searchNameOfCustomer;
         String searchToken;
+        String[] nameOfCustomers;
+        String[] weightOfBoxes;
+        int boxNumber;
+        boolean[] dangerousItemInBoxes;
         boolean keepRunning = true;
 
         System.out.println("Welcome to Truck Loader");
 
         //Gets number of records
         System.out.println("What is the maximum number of boxes that can fit inside the truck?");
-        numberOfBoxes = scan.nextInt();
+        boxNumber = scan.nextInt();
         System.out.println();
 
         //Assigning array lengths based on user's input
-        nameOfCustomers = new String[numberOfBoxes];
-        weightOfBoxes = new String[numberOfBoxes];
-        dangerousItemInBox = new boolean[numberOfBoxes];
+        nameOfCustomers = new String[boxNumber];
+        weightOfBoxes = new String[boxNumber];
+        dangerousItemInBoxes = new boolean[boxNumber];
 
         //Gets the required data
         //++ is a unary operator
-        for (int i = 0; i < numberOfBoxes; i++) {
+        for (int i = 0; i < boxNumber; i++) {
 
             System.out.println("Please enter the customer name for box " + (i+1) + ":");
             nameOfCustomers[i] = scan.next();
@@ -42,7 +42,7 @@ public class TruckLoader {
             yesOrNo = scan.next();
             
             //using if condition to assign value to dangerousness of box
-            dangerousItemInBox[i] = yesOrNo.equalsIgnoreCase("y");
+            dangerousItemInBoxes[i] = yesOrNo.equalsIgnoreCase("y");
 
             System.out.println();
         }
@@ -62,9 +62,9 @@ public class TruckLoader {
                 case "a":
                     System.out.println("Here is the list of all the boxes:");
  
-                    for (int i = 0; i < numberOfBoxes; i++) {
+                    for (int i = 0; i < boxNumber; i++) {
                         //(?:) = Ternary operator/ In-line If 
-                        System.out.println("Box " + (i+1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBox[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
+                        System.out.println("Box " + (i+1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBoxes[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
                     }
                     System.out.println();
 
@@ -75,9 +75,9 @@ public class TruckLoader {
                     System.out.println("What is the customer's name? ");
                     searchNameOfCustomer = scan.next();
 
-                    for (int i = 0; i < numberOfBoxes; i++) {
+                    for (int i = 0; i < boxNumber; i++) {
                         if (nameOfCustomers[i].equalsIgnoreCase(searchNameOfCustomer)) {
-                            System.out.println("Box " + (i+1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBox[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
+                            System.out.println("Box " + (i+1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBoxes[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
                         }
                     }
                     System.out.println();
@@ -90,14 +90,14 @@ public class TruckLoader {
                     searchToken = scan.next();
                     System.out.println();
                     
-                    for (int i = 0; i < numberOfBoxes; i++){
+                    for (int i = 0; i < boxNumber; i++){
                     	//&& is a unary operator
-                        if (dangerousItemInBox[i] && searchToken.equalsIgnoreCase("d")) {
-                            System.out.println("Box " + (i + 1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBox[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
+                        if (dangerousItemInBoxes[i] && searchToken.equalsIgnoreCase("d")) {
+                            System.out.println("Box " + (i + 1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBoxes[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
                         }
                         //! is a unary operator
-                        if (!dangerousItemInBox[i] && searchToken.equalsIgnoreCase("n")) {
-                            System.out.println("Box " + (i + 1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBox[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
+                        if (!dangerousItemInBoxes[i] && searchToken.equalsIgnoreCase("n")) {
+                            System.out.println("Box " + (i + 1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBoxes[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
                         }
                     }
                         System.out.println();
