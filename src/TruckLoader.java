@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TruckLoader {
@@ -12,7 +13,7 @@ public class TruckLoader {
         String searchToken;
         String[] nameOfCustomers;
         String[] weightOfBoxes;
-        int boxNumber;
+        int boxNumber = 0;
         boolean[] dangerousItemInBoxes;
         boolean keepRunning = true;
 
@@ -20,10 +21,27 @@ public class TruckLoader {
 
         //Gets number of records
         System.out.println("What is the maximum number of boxes that can fit inside the truck?");
-        boxNumber = scan.nextInt();
-        System.out.println();
+        
+        
+        for (int i = 0; i < 3; i++) {
+        	boxNumber = 0;
+			try {
+				boxNumber = scan.nextInt();
+			} catch (InputMismatchException e) {
+				System.out.println("Box count should be numeric! Try again");
+			} 
+		}
+        
+        if(boxNumber == 0) {
+        	System.out.println("Max tries exceeded. Please re-run the entire program");
+        	scan.close();
+        	return;
+        }
+        
+		System.out.println();
 
         //Assigning array lengths based on user's input
+        //new means instantiate an object variable. instantiate is not possible for primitive vars
         nameOfCustomers = new String[boxNumber];
         weightOfBoxes = new String[boxNumber];
         dangerousItemInBoxes = new boolean[boxNumber];
@@ -74,12 +92,18 @@ public class TruckLoader {
                 case "c":
                     System.out.println("What is the customer's name? ");
                     searchNameOfCustomer = scan.next();
-
+                    boolean nfound = false;
                     for (int i = 0; i < boxNumber; i++) {
                         if (nameOfCustomers[i].equalsIgnoreCase(searchNameOfCustomer)) {
                             System.out.println("Box " + (i+1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBoxes[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
+                            nfound = true;
                         }
                     }
+                    
+                    if(!nfound) {
+                        System.out.println(searchNameOfCustomer + "not found");
+                    }
+                    
                     System.out.println();
 
                     break;
@@ -90,17 +114,27 @@ public class TruckLoader {
                     searchToken = scan.next();
                     System.out.println();
                     
+                    boolean dfound = false;
                     for (int i = 0; i < boxNumber; i++){
                     	//&& is a unary operator
                         if (dangerousItemInBoxes[i] && searchToken.equalsIgnoreCase("d")) {
                             System.out.println("Box " + (i + 1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBoxes[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
+                            dfound = true;
                         }
+                   
                         //! is a unary operator
                         if (!dangerousItemInBoxes[i] && searchToken.equalsIgnoreCase("n")) {
                             System.out.println("Box " + (i + 1) + " Customer name: " + nameOfCustomers[i] + " Weight(kg): " + weightOfBoxes[i] + " " + (dangerousItemInBoxes[i] ? "Dangerous Goods" : "Non Dangerous Goods"));
+                            dfound = true;
                         }
+                        
                     }
-                        System.out.println();
+                    
+                    if(!dfound) {
+                    	System.out.println("No " + (searchToken.equalsIgnoreCase("d")? "dangerous " : "non-dangerous ") + "items found");	
+                    }
+
+                    System.out.println();
 
                     break;
 
